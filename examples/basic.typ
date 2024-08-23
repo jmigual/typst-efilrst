@@ -1,6 +1,6 @@
 #import "../src/lib.typ" as reflist
 
-#show ref: reflist.showRule
+#show ref: reflist.show-rule
 
 
 #reflist.reflist(

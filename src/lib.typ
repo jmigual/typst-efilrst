@@ -28,7 +28,7 @@
 }
 
 
-#let showRule(it) = {
+#let show-rule(it) = {
   if (it.element != none 
       and it.element.func() == metadata 
       and type(it.element.value) == dictionary 

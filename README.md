@@ -6,6 +6,7 @@ A simple referenceable list library for Typst. If you ever wanted to reference e
 ```typst
 
 #import "@preview/reflist:0.1.0" as reflist
+#show ref: reflist.show-rule
 
 #reflist.reflist(
   [My cool constraint A],<c:a>,
