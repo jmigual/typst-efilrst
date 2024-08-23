@@ -7,8 +7,8 @@
   [My cool constraint A],<c:a>,
   [My also cool constraint B],<c:b>,
   [My non-refernceable constraint C],
-  list_style: "C1)",
-  ref_style: "C1",
+  list-style: "C1)",
+  ref-style: "C1",
   name: "Constraint"
 )
 

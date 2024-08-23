@@ -1,4 +1,4 @@
-#let reflist(..children, name: "", list_style: "1)", ref_style: "1") = {
+#let reflist(..children, name: "", list-style: "1)", ref-style: "1") = {
   // Gather children in body-label pairs
   let childrenArray = children.pos()
   let childrenPairs = ()
@@ -15,7 +15,7 @@
   // Insert a metadata to be labeled
   let children = childrenPairs.enumerate().map(
     ((n, (body, lbl))) => if (type(lbl) == label) {
-      let num_text = numbering(ref_style, n+1)
+      let num_text = numbering(ref-style, n+1)
       let m = metadata((reflist_type: "reflist", reflist_n: num_text, reflist_name: name))
       [#body#m#lbl]
     }
@@ -24,7 +24,7 @@
     ]
   )
 
-  enum(numbering: list_style, ..children)
+  enum(numbering: list-style, ..children)
 }
 
 
