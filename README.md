@@ -8,16 +8,28 @@ A simple referenceable list library for Typst. If you ever wanted to reference e
 #import "@preview/efilrst:0.1.0" as efilrst
 #show ref: efilrst.show-rule
 
-#efilrst.reflist(
+#let constraint = efilrst.reflist.with(
+  name: "Constraint", 
+  list-style: "C1)", 
+  ref-style: "C1")
+
+#constraint(
   [My cool constraint A],<c:a>,
   [My also cool constraint B],<c:b>,
   [My non-refernceable constraint C],
-  list_style: "C1)",
-  ref_style: "C1",
-  name: "Constraint"
 )
 
-See how my @c:a is better than @c:b.
+See how my @c:a is better than @c:b but not as cool as @c:e.
+
+#constraint(
+  [We continue the list with D],<c:d>,
+  [And then add constraint E],<c:e>,
+)
+
+#constraint(
+  counter-name: "new-list",
+  [This is a new list!],<c:f>,
+)
 ```
 
 This generates the following output:
@@ -29,11 +41,20 @@ This generates the following output:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## TODO
+
+- [x] Add continuation of lists through the `counter` function
+- [ ] Allow resetting the counter on context (e.g. a new chapter).
+
 ## Changelog
 
 ### 0.1.0
 
 - Initial release
+
+### 0.2.0
+
+- Add continuation of lists through the `counter` function
 
 
 
