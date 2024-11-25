@@ -44,7 +44,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## TODO
 
 - [x] Add continuation of lists through the `counter` function
-- [ ] Allow resetting the counter on context (e.g. a new chapter).
+- [x] Add support for nested lists
 
 ## Changelog
 
@@ -57,3 +57,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Add continuation of lists through the `counter` function
 
 ### 0.3.0
+
+- Add support for nested lists
