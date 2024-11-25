@@ -56,5 +56,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Add continuation of lists through the `counter` function
 
-
-
+### 0.3.0
