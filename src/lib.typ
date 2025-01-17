@@ -49,7 +49,8 @@
   numbers: (),
 ) = {
   let children = ()
-  for (n, (body, lbl)) in childrenPairs.enumerate() {
+  let n = 0
+  for (body, lbl) in childrenPairs {
     if type(body) == content {
       if type(lbl) == label {
         let num-text = if full {
@@ -64,6 +65,7 @@
           #body
         ])
       }
+      n += 1
     } else if type(body) == array {
       if n > 0 {
         children.last() += _make-children(
