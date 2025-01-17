@@ -45,6 +45,7 @@
   name,
   list-style,
   full,
+  ref-nb-space,
   numbers: (),
 ) = {
   let children = ()
@@ -56,7 +57,7 @@
         } else {
           numbering(ref-style, counter-val + n)
         }
-        let m = metadata((reflist-type: "reflist", reflist-n: num-text, reflist-name: name))
+        let m = metadata((reflist-type: "reflist", reflist-n: num-text, reflist-name: name, reflist-nb-space: ref-nb-space))
         children.push([#body#m#lbl])
       } else {
         children.push([
@@ -72,6 +73,7 @@
           name,
           list-style,
           full,
+          ref-nb-space,
           numbers: numbers + (n,),
         )
       }
@@ -93,6 +95,7 @@
   counter-name: auto,
   start: 1,
   full: true,
+  ref-nb-space: true,
 ) = (
   context {
     let childrenPairs = _make-pairs(children.pos())
@@ -106,6 +109,7 @@
       name,
       list-style,
       full,
+      ref-nb-space,
     )
     s.step()
     c.update(counter-val + childrenPairs.len())
@@ -126,7 +130,7 @@
     } else {
       itv.reflist-name
     }
-    link(it.element.location(), [#sup #itv.reflist-n])
+    link(it.element.location(), if itv.reflist-nb-space [#sup~#itv.reflist-n] else [#sup #itv.reflist-n])
   } else {
     it
   }
