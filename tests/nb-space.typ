@@ -11,9 +11,9 @@
 
 #constraint(
   counter-name: "continuable",
-  [My cool constraint A],<c:a>
+  [My cool constraint A],<c:a>,
+  [Another constraint B],<c:b>
 )
 
-Let's test non-breaking space for the @c:a.
-
+Let's test non-breaking space for the @c:a and @c:b[].
 

@@ -45,7 +45,7 @@
   name,
   list-style,
   full,
-  ref-nb-space,
+  ref-joiner,
   numbers: (),
 ) = {
   let children = ()
@@ -58,7 +58,7 @@
         } else {
           numbering(ref-style, counter-val + n)
         }
-        let m = metadata((reflist-type: "reflist", reflist-n: num-text, reflist-name: name, reflist-nb-space: ref-nb-space))
+        let m = metadata((efilrst-type: "efilrst", efilrst-n: num-text, efilrst-name: name, efilrst-joiner: ref-joiner))
         children.push([#body#m#lbl])
       } else {
         children.push([
@@ -97,7 +97,7 @@
   counter-name: auto,
   start: 1,
   full: true,
-  ref-nb-space: true,
+  ref-joiner: sym.space.nobreak,
 ) = (
   context {
     let childrenPairs = _make-pairs(children.pos())
@@ -111,7 +111,7 @@
       name,
       list-style,
       full,
-      ref-nb-space,
+      ref-joiner,
     )
     s.step()
     c.update(counter-val + childrenPairs.len())
@@ -124,15 +124,22 @@
     it.element != none and it.element.func() == metadata and type(it.element.value) == dictionary and it
       .element
       .value
-      .at("reflist-type", default: none) == "reflist"
+      .at("efilrst-type", default: none) == "efilrst"
   ) {
     let itv = it.element.value
     let sup = if (it.supplement != auto) {
-      it.supplement
+      [#it.supplement]
     } else {
-      itv.reflist-name
+      [#itv.efilrst-name]
     }
-    link(it.element.location(), if itv.reflist-nb-space [#sup~#itv.reflist-n] else [#sup #itv.reflist-n])
+
+    if itv.efilrst-joiner != none and sup != [] {
+      sup = [#sup#itv.efilrst-joiner#itv.efilrst-n]
+    } else {
+      sup = [#sup #itv.efilrst-n]
+    }
+
+    link(it.element.location(), sup)
   } else {
     it
   }

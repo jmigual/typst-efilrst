@@ -56,7 +56,7 @@ reflist(
   counter-name: auto,
   start: 1,
   full: true,
-  ref-nb-space: true,
+  ref-joiner: sym.space.nobreak,
 )
 ```
 
@@ -67,7 +67,7 @@ reflist(
 - `counter-name`: Name of the counter that will be used to generate the numbers. If `auto` is provided, `efilrst` will choose a non-colliding name. If a name is provided and is the same as the name of a previous list, the counter will continue from the last number of the previous list.
 - `start`: Number from which the list will start.
 - `full`: If `true`, the full reference will be shown. If `false`, only the number will be shown.
-- `ref-nb-space`: If `true`, a non-breaking space will be added between the name of the reference and the reference itself, e.g., `[Constraint~C1]` instead of `[Constraint C1]`.
+- `ref-joiner`: Symbol used to join the name of the reference and the reference itself. By default, a non-breaking space is added to mimic the default behaviour of typst for references. E.g., for a reference named `Constraint` and a reference `C1` it generates `[Constraint~C1]`. To disable it, pass `none`.
 
 
 ## License
