@@ -1,11 +1,12 @@
 # Typst efilrst
+
 A simple referenceable list library for Typst. If you ever wanted to reference elements in a list by a key, this library is for you. The name comes from "reflist" but sorted alphabetically because we are not allowed to use descriptive names for packages in Typst 🤷🏻‍♂️.
 
 ## Example
 
 ```typst
 
-#import "@preview/efilrst:0.1.0" as efilrst
+#import "@preview/efilrst:0.3.2" as efilrst
 #show ref: efilrst.show-rule
 
 #let constraint = efilrst.reflist.with(
@@ -69,7 +70,6 @@ reflist(
 - `full`: If `true`, the full reference will be shown. If `false`, only the number will be shown.
 - `ref-joiner`: Symbol used to join the name of the reference and the reference itself. By default, a non-breaking space is added to mimic the default behaviour of typst for references. E.g., for a reference named `Constraint` and a reference `C1` it generates `[Constraint~C1]`. To disable it, pass `none`.
 
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -92,3 +92,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Fix bad numbering [#1](https://github.com/jmigual/typst-efilrst/issues/1)
 - Add option to have a non-breaking space between the name of the reference and the reference itself [#2](https://github.com/jmigual/typst-efilrst/issues/2)
+
+### 0.3.2
+
+- Fix package not working due to using the wrong variable name

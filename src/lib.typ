@@ -75,12 +75,12 @@
           name,
           list-style,
           full,
-          ref-nb-space,
+          ref-joiner,
           numbers: numbers + (n,),
         )
       }
       else {
-        error("A nested list first needs an element")
+        panic("A nested list first needs an element")
       }
     }
   }
