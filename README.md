@@ -76,23 +76,23 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Changelog
 
-### 0.1.0
+### 0.3.2
 
-- Initial release
-
-### 0.2.0
-
-- Add continuation of lists through the `counter` function
-
-### 0.3.0
-
-- Add support for nested lists
+- Fix package not working due to using the wrong variable name
 
 ### 0.3.1
 
 - Fix bad numbering [#1](https://github.com/jmigual/typst-efilrst/issues/1)
 - Add option to have a non-breaking space between the name of the reference and the reference itself [#2](https://github.com/jmigual/typst-efilrst/issues/2)
 
-### 0.3.2
+### 0.3.0
 
-- Fix package not working due to using the wrong variable name
+- Add support for nested lists
+
+### 0.2.0
+
+- Add continuation of lists through the `counter` function
+
+### 0.1.0
+
+- Initial release
