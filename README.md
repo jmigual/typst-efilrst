@@ -6,7 +6,7 @@ A simple referenceable list library for Typst. If you ever wanted to reference e
 
 ```typst
 
-#import "@preview/efilrst:0.1.0" as efilrst
+#import "@preview/efilrst:0.3.2" as efilrst
 #show ref: efilrst.show-rule
 
 #let constraint = efilrst.reflist.with(
