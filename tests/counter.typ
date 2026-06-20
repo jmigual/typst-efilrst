@@ -18,7 +18,7 @@
   ([E], <r2:1>)
 )
 
-#constraint(counter-name: "continuable", [F], <r3>, ([G], <r3:1>))
+#constraint(counter-name: "continuable", [F], <r3>, ([G], <r3:1>, ([H], <r3:1:1>)), [I], <r4>)
 
 @r1 = 1
 
@@ -37,3 +37,7 @@
 @r3 = 3
 
 @r3:1 = 3.1
+
+@r3:1:1 = 3.1.1
+
+@r4 = 4

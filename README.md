@@ -76,6 +76,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Changelog
 
+### 0.3.3
+
+- Do not add an space when no name is given.
+- Fix resuming the counter not working properly when the previous list has a sublist.
+
 ### 0.3.2
 
 - Fix package not working due to using the wrong variable name
