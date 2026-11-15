@@ -6,7 +6,7 @@ A simple referenceable list library for Typst. If you ever wanted to reference e
 
 ```typst
 
-#import "@preview/efilrst:0.3.3" as efilrst
+#import "@preview/efilrst:0.4.0" as efilrst
 #show ref: efilrst.show-rule
 
 #let constraint = efilrst.reflist.with(
@@ -46,12 +46,19 @@ This generates the following output:
 
 ![Example of the typst output. The last sentence reads "See how my Constraint C1 is better than Constraint C2"](img/image.png)
 
+To reference several elements at once, use `refs`. Like LaTeX's `cleveref`, it shows the plural name once and joins the numbers:
+
+```typst
+#efilrst.refs(<c:a>, <c:b>, <c:e>) // Constraints C1, C2 and C5
+```
+
 ## Reference
 
 ```typst
 reflist(
   ..children,
   name: "",
+  name-plural: auto,
   list-style: "1.1.1)",
   ref-style: "1.1.1",
   counter-name: auto,
@@ -69,12 +76,25 @@ reflist(
 - `start`: Number from which the list will start.
 - `full`: If `true`, the full reference will be shown. If `false`, only the number will be shown.
 - `ref-joiner`: Symbol used to join the name of the reference and the reference itself. By default, a non-breaking space is added to mimic the default behaviour of typst for references. E.g., for a reference named `Constraint` and a reference `C1` it generates `[Constraint~C1]`. To disable it, pass `none`.
+- `name-plural`: Plural of `name`, used by `refs`. If `auto`, an `s` is appended to `name` (e.g., `Constraint` becomes `Constraints`); an empty or `none` name stays as is.
+
+```typst
+refs(..labels, separator: ", ", last: " and ")
+```
+
+- `labels`: Labels of the elements to reference. If they all share the same `name-plural`, it is shown once followed by the numbers (e.g., `Constraints C1, C2 and C4`), each linked to its element. Otherwise, or with a single label, the individual references are joined (e.g., `Constraint C1 and Property P2`).
+- `separator`: Separator between the references.
+- `last`: Separator between the last two references. E.g., pass `", and "` for a serial comma.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Changelog
+
+### 0.4.0
+
+- Add `refs` to reference several elements at once (e.g., `Constraints C1, C2 and C4`) and the `name-plural` option of `reflist`.
 
 ### 0.3.3
 
