@@ -82,7 +82,7 @@ reflist(
 refs(..labels, separator: ", ", last: " and ")
 ```
 
-- `labels`: Labels of the elements to reference. If they all share the same `name-plural`, it is shown once followed by the numbers (e.g., `Constraints C1, C2 and C4`), each linked to its element. Otherwise, or with a single label, the individual references are joined (e.g., `Constraint C1 and Property P2`). Repeated labels are shown once. The grouped reference uses the `ref-joiner` of the first element.
+- `labels`: Labels of the elements to reference. If they all share the same `name-plural`, it is shown once followed by the numbers (e.g., `Constraints C1, C2 and C4`), each linked to its element. Otherwise, or with a single label, the individual references are joined (e.g., `Constraint C1 and Property P2`). Repeated labels are shown once. The grouped reference uses the `ref-joiner` of the first element. A `str` plural and a `content` plural are never grouped together.
 - `separator`: Separator between the references.
 - `last`: Separator between the last two references. E.g., pass `", and "` for a serial comma.
 

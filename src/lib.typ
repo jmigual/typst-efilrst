@@ -144,6 +144,8 @@
   context {
     let name-plural = if name-plural != auto {
       name-plural
+    } else if type(name) == str and name != "" {
+      name + "s"
     } else if name not in (none, "", []) {
       [#name#"s"]
     } else {
@@ -217,7 +219,8 @@
 /// share the same plural name (e.g., they come from lists with different names or
 /// are not `reflist` elements), the individual references are joined instead,
 /// e.g., `[Constraint~C1 and Property~P2]`. Repeated labels are shown once. The
-/// grouped reference uses the `ref-joiner` of the first element.
+/// grouped reference uses the `ref-joiner` of the first element. A `str` plural
+/// and a `content` plural are never grouped together.
 ///
 /// - labels (label): Labels of the elements to reference, in the order they are shown.
 /// - separator (str, content): Separator between the references.

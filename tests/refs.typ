@@ -41,6 +41,13 @@
   ref-style: "S1",
 )
 
+#let constraint-d = efilrst.reflist.with(
+  name: "Constraint",
+  name-plural: "Constraints",
+  list-style: "D1)",
+  ref-style: "D1",
+)
+
 #let rule = efilrst.reflist.with(
   name: [Rule],
   list-style: "R1)",
@@ -56,6 +63,8 @@
 #step([N], <s1>, [O], <s2>)
 
 #rule([Q], <r1>, [R], <r2>)
+
+#constraint-d([U], <d1>)
 
 #property([E], <p1>, [F], <p2>)
 
@@ -86,6 +95,8 @@
 #efilrst.refs(<r1>, <r2>) = Rules~R1 and R2
 
 #efilrst.refs(<c1>, <c2>, <c1>) = Constraints~C1 and C2
+
+#efilrst.refs(<c1>, <d1>) = Constraints~C1 and D1
 
 #efilrst.refs(<c1>, <p2>) = Constraint~C1 and Property~P2
 
