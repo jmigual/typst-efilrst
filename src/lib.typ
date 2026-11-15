@@ -144,8 +144,8 @@
   context {
     let name-plural = if name-plural != auto {
       name-plural
-    } else if type(name) == str and name != "" {
-      name + "s"
+    } else if name not in (none, "", []) {
+      [#name#"s"]
     } else {
       name
     }
@@ -216,14 +216,15 @@
 /// `[Constraints~C1, C2 and C4]`. If only one label is given, or the elements do not
 /// share the same plural name (e.g., they come from lists with different names or
 /// are not `reflist` elements), the individual references are joined instead,
-/// e.g., `[Constraint~C1 and Property~P2]`.
+/// e.g., `[Constraint~C1 and Property~P2]`. Repeated labels are shown once. The
+/// grouped reference uses the `ref-joiner` of the first element.
 ///
 /// - labels (label): Labels of the elements to reference, in the order they are shown.
 /// - separator (str, content): Separator between the references.
 /// - last (str, content): Separator between the last two references.
 /// -> content
 #let refs(..labels, separator: ", ", last: " and ") = context {
-  let labels = labels.pos()
+  let labels = labels.pos().dedup()
   assert(labels.len() > 0, message: "refs needs at least one label")
   assert(labels.all(lbl => type(lbl) == label), message: "refs only accepts labels")
 
