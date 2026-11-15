@@ -47,6 +47,7 @@
   counter-val,
   ref-style,
   name,
+  name-plural,
   list-style,
   full,
   ref-joiner,
@@ -62,7 +63,7 @@
         } else {
           numbering(ref-style, n + 1)
         }
-        let m = metadata((efilrst-type: "efilrst", efilrst-n: num-text, efilrst-name: name, efilrst-joiner: ref-joiner))
+        let m = metadata((efilrst-type: "efilrst", efilrst-n: num-text, efilrst-name: name, efilrst-name-plural: name-plural, efilrst-joiner: ref-joiner))
         children.push([#body#m#lbl])
       } else {
         children.push([
@@ -77,6 +78,7 @@
           1,
           ref-style,
           name,
+          name-plural,
           list-style,
           full,
           ref-joiner,
@@ -106,6 +108,9 @@
 ///   is provided, only the number will be shown in the reference. E.g., for a reference
 ///   named `Constraint` and a reference `C1` it generates `[Constraint~C1]` if the default
 ///   `ref-joiner` is used, and `[Constraint C1]` if `ref-joiner: none` is used.
+/// - name-plural (str, content, none, auto): Plural of `name`, used by `refs` when it
+///   references several elements of the list at once. If `auto`, an `s` is appended to
+///   `name` (e.g., `Constraint` becomes `Constraints`); an empty or `none` name stays as is.
 /// - list-style (str, function): Style of the list. It will be used to generate
 ///   the list numbers, following Typst's `numbering` conventions.
 /// - ref-style (str, function): Style of the references. It will be used to
@@ -128,6 +133,7 @@
 #let reflist(
   ..children,
   name: "",
+  name-plural: auto,
   list-style: "1.1.1)",
   ref-style: "1.1.1",
   counter-name: auto,
@@ -136,6 +142,15 @@
   ref-joiner: sym.space.nobreak,
 ) = (
   context {
+    let name-plural = if name-plural != auto {
+      name-plural
+    } else if type(name) == str and name != "" {
+      name + "s"
+    } else if name not in (none, "", []) {
+      [#name#"s"]
+    } else {
+      name
+    }
     let childrenPairs = _make-pairs(children.pos())
     let (c, counter-val) = _get-counter(counter-name, counter-prefix, start)
 
@@ -145,6 +160,7 @@
       counter-val,
       ref-style,
       name,
+      name-plural,
       list-style,
       full,
       ref-joiner,
@@ -164,13 +180,15 @@
 )
 
 
+#let _is-efilrst(element) = (
+  element != none
+    and element.func() == metadata
+    and type(element.value) == dictionary
+    and element.value.at("efilrst-type", default: none) == "efilrst"
+)
+
 #let show-rule(it) = {
-  if (
-    it.element != none
-      and it.element.func() == metadata
-      and type(it.element.value) == dictionary
-      and it.element.value.at("efilrst-type", default: none) == "efilrst"
-  ) {
+  if _is-efilrst(it.element) {
     let itv = it.element.value
     let sup = if (it.supplement != auto) {
       [#it.supplement]
@@ -194,5 +212,43 @@
   }
 }
 
+/// References several elements at once, in the style of LaTeX's `cleveref`: the
+/// plural name of the list is shown once, followed by the numbers of the elements,
+/// each one linked to its element. E.g., `#refs(<c:a>, <c:b>, <c:d>)` generates
+/// `[Constraints~C1, C2 and C4]`. If only one label is given, or the elements do not
+/// share the same plural name (e.g., they come from lists with different names or
+/// are not `reflist` elements), the individual references are joined instead,
+/// e.g., `[Constraint~C1 and Property~P2]`. Repeated labels are shown once. The
+/// grouped reference uses the `ref-joiner` of the first element. A `str` plural
+/// and a `content` plural are never grouped together.
+///
+/// - labels (label): Labels of the elements to reference, in the order they are shown.
+/// - separator (str, content): Separator between the references.
+/// - last (str, content): Separator between the last two references.
+/// -> content
+#let refs(..labels, separator: ", ", last: " and ") = context {
+  let labels = labels.pos().dedup()
+  assert(labels.len() > 0, message: "refs needs at least one label")
+  assert(labels.all(lbl => type(lbl) == label), message: "refs only accepts labels")
 
+  let elements = labels.map(lbl => query(lbl).at(0, default: none))
+  let first = elements.first()
+  let grouped = (
+    elements.len() > 1
+      and elements.all(_is-efilrst)
+      and elements.all(el => el.value.efilrst-name-plural == first.value.efilrst-name-plural)
+  )
+  if not grouped {
+    return labels.map(ref).join(separator, last: last)
+  }
 
+  let nums = elements.map(el => link(el.location(), el.value.efilrst-n)).join(separator, last: last)
+  let sup = first.value.efilrst-name-plural
+  if sup in (none, "", []) {
+    nums
+  } else if first.value.efilrst-joiner != none {
+    [#sup#first.value.efilrst-joiner#nums]
+  } else {
+    [#sup #nums]
+  }
+}
